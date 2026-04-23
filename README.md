@@ -12,3 +12,7 @@ Tugas 3
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/06936f48-ff83-40ae-9f0d-61b01595599d" />
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/da4f9997-149f-4054-af63-3088b20fb78e" />
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/509b9fb8-3563-4886-b89e-f9e990679bbd" />
+
+Tugas 6
+<img width="1918" height="1006" alt="image" src="https://github.com/user-attachments/assets/df61b2e1-e0c3-480a-977b-a933555fc259" />
+
