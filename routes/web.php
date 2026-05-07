@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +34,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/product/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
     Route::get('/product/edit/{product}', [App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
     Route::delete('/product/delete/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('product.delete');
+
+    // Category Routes (Protected by manage-categories Gate)
+    Route::middleware('can:manage-categories')->group(function () {
+        Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('/category/{category}', [CategoryController::class, 'update'])->name('category.update');
+        Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +23,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'qty' => 'required|integer',
             'price' => 'required|numeric',
         ], [
+            'category_id.required' => 'Kategori produk wajib dipilih.',
+            'category_id.exists' => 'Kategori produk tidak valid.',
             'name.required' => 'Nama produk wajib diisi.',
             'name.max' => 'Nama produk tidak boleh lebih dari 255 karakter.',
             'qty.required' => 'Jumlah (kuantitas) produk wajib diisi.',
@@ -63,8 +67,9 @@ class ProductController extends Controller
     public function create()
     {
         $users = User::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
 
-        return view('product.create', compact('users'));
+        return view('product.create', compact('users', 'categories'));
     }
 
     public function show($id)
@@ -80,10 +85,13 @@ class ProductController extends Controller
         Gate::authorize('update', $product);
 
         $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'qty' => 'required|integer',
             'price' => 'required|numeric',
         ], [
+            'category_id.required' => 'Kategori produk wajib dipilih.',
+            'category_id.exists' => 'Kategori produk tidak valid.',
             'name.required' => 'Nama produk wajib diisi.',
             'name.max' => 'Nama produk tidak boleh lebih dari 255 karakter.',
             'qty.required' => 'Jumlah (kuantitas) produk wajib diisi.',
@@ -120,8 +128,9 @@ class ProductController extends Controller
     {
         Gate::authorize('update', $product);
         $users = User::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
 
-        return view('product.edit', compact('product', 'users'));
+        return view('product.edit', compact('product', 'users', 'categories'));
     }
 
     public function delete($id)
